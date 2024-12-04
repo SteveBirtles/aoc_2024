@@ -21,6 +21,8 @@ func main() {
 		day2()
 	case 3:
 		day3()
+	case 4:
+		day4()
 	default:
 		fmt.Printf("Day %d not implemented.\n", day)
 	}
