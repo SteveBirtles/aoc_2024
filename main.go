@@ -7,14 +7,27 @@ import (
 
 func main() {
 
-	if len(os.Args) == 0 {
-		fmt.Println("Please specify a day to run as the first argument.")
-		return
+	day := 0
+	if len(os.Args) >= 2 {
+		day = ToInt(os.Args[1])
 	}
 
-	day := ToInt(os.Args[1])
-
 	switch day {
+	case 0:
+		fmt.Println("Day 1...")
+		day1()
+		fmt.Println("Day 2...")
+		day2()
+		fmt.Println("Day 3...")
+		day3()
+		fmt.Println("Day 4...")
+		day4()
+		fmt.Println("Day 5...")
+		day5()
+		fmt.Println("Day 6...")
+		day6()
+		fmt.Println("Day 7...")
+		day7()
 	case 1:
 		day1()
 	case 2:
@@ -27,6 +40,8 @@ func main() {
 		day5()
 	case 6:
 		day6()
+	case 7:
+		day7()
 	default:
 		fmt.Printf("Day %d not implemented.\n", day)
 	}
