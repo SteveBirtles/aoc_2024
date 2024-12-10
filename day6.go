@@ -84,9 +84,6 @@ func day6() {
 		}
 		worldMap[x][y].visited = true
 		worldMap[x][y].directions[dir] = true
-
-		fmt.Print(".")
-
 	}
 
 	fmt.Printf("Part 1: %d\n", total1)
