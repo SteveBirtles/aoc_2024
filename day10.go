@@ -10,35 +10,20 @@ const GRID_SIZE = 57
 
 var grid [GRID_SIZE][GRID_SIZE]int
 
-func traverse1(x, y, searchValue int) int {
+func traverse(x, y, searchValue int, restrict bool) int {
 	if x < 0 || y < 0 || x >= GRID_SIZE || y >= GRID_SIZE {
 		return 0
 	} else if grid[x][y] == searchValue {
 		if searchValue == 9 {
-			grid[x][y] = -1
+			if restrict {
+				grid[x][y] = -1
+			}
 			return 1
 		} else {
-			return traverse1(x+1, y, searchValue+1) +
-				traverse1(x, y+1, searchValue+1) +
-				traverse1(x-1, y, searchValue+1) +
-				traverse1(x, y-1, searchValue+1)
-		}
-	} else {
-		return 0
-	}
-}
-
-func traverse2(x, y, searchValue int) int {
-	if x < 0 || y < 0 || x >= GRID_SIZE || y >= GRID_SIZE {
-		return 0
-	} else if grid[x][y] == searchValue {
-		if searchValue == 9 {
-			return 1
-		} else {
-			return traverse2(x+1, y, searchValue+1) +
-				traverse2(x, y+1, searchValue+1) +
-				traverse2(x-1, y, searchValue+1) +
-				traverse2(x, y-1, searchValue+1)
+			return traverse(x+1, y, searchValue+1, restrict) +
+				traverse(x, y+1, searchValue+1, restrict) +
+				traverse(x-1, y, searchValue+1, restrict) +
+				traverse(x, y-1, searchValue+1, restrict)
 		}
 	} else {
 		return 0
@@ -63,7 +48,7 @@ func day10() {
 	for x := range GRID_SIZE {
 		for y := range GRID_SIZE {
 			if grid[x][y] == 0 {
-				value1 := traverse1(x, y, 0)
+				total1 += traverse(x, y, 0, true)
 				for i := range GRID_SIZE {
 					for j := range GRID_SIZE {
 						if grid[i][j] == -1 {
@@ -71,13 +56,7 @@ func day10() {
 						}
 					}
 				}
-				//fmt.Printf("(%d, %d) --> %d\n", x, y, value)
-				total1 += value1
-
-				value2 := traverse2(x, y, 0)
-				fmt.Printf("(%d, %d) --> %d\n", x, y, value2)
-				total2 += value2
-
+				total2 += traverse(x, y, 0, false)
 			}
 		}
 	}
